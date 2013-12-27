@@ -7,7 +7,7 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Exception\ServerErrorResponseException;
 
 $client = new Client(array(
-    'hostname' => 'openl10n.local',
+    'hostname' => 'openl10n.dev',
     'login'    => 'user',
     'password' => 'user',
 ));
