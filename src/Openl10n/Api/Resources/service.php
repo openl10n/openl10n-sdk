@@ -29,6 +29,18 @@ return array(
                 'defaultLocale' => array(
                     'location' => 'json',
                     'type'     => 'string',
+                    'default'  => 'en',
+                    'required' => true,
+                ),
+            )
+        ),
+        'GetProject' => array(
+            'httpMethod' => 'GET',
+            'uri'        => 'projects/{slug}',
+            'parameters' => array(
+                'slug' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
                     'required' => true
                 ),
             )
