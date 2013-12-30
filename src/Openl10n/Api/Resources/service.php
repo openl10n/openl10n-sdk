@@ -84,6 +84,69 @@ return array(
         ),
 
         //
+        // Languages CRUD
+        //
+        'ListLanguages' => array(
+            'httpMethod' => 'GET',
+            'uri'        => 'projects/{project}/languages',
+            'parameters' => array(
+                'project' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
+                    'required' => true
+                ),
+            )
+        ),
+        'CreateLanguage' => array(
+            'httpMethod' => 'POST',
+            'uri'        => 'projects/{project}/languages',
+            'parameters' => array(
+                'project' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
+                    'required' => true
+                ),
+                'locale' => array(
+                    'location' => 'json',
+                    'type'     => 'string',
+                    'required' => true,
+                ),
+            )
+        ),
+        'GetLanguage' => array(
+            'httpMethod' => 'GET',
+            'uri'        => 'projects/{project}/languages/{locale}',
+            'parameters' => array(
+                'project' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
+                    'required' => true
+                ),
+                'locale' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
+                    'required' => true,
+                ),
+            )
+        ),
+        'DeleteLanguage' => array(
+            'httpMethod' => 'DELETE',
+            'uri'        => 'projects/{project}/languages/{locale}',
+            'parameters' => array(
+                'project' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
+                    'required' => true
+                ),
+                'locale' => array(
+                    'location' => 'uri',
+                    'type'     => 'string',
+                    'required' => true,
+                ),
+            )
+        ),
+
+        //
         // Translations import/export
         //
         'ImportDomain' => array(
