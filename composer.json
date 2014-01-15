@@ -1,6 +1,6 @@
 {
-    "name": "openl10n/api-client",
-    "description": "An API client for openl10n",
+    "name": "openl10n/sdk",
+    "description": "The API client for openl10n",
     "license": "MIT",
     "authors": [
         {
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Openl10n": "src"
+            "Openl10n\\Sdk": "src"
         }
     }
 }

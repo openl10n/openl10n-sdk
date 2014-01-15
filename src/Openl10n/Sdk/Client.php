@@ -1,6 +1,6 @@
 <?php
 
-namespace Openl10n\Api;
+namespace Openl10n\Sdk;
 
 use Guzzle\Common\Collection;
 use Guzzle\Service\Client as GuzzleClient;
