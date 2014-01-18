@@ -159,6 +159,11 @@ return array(
                     'type'     => 'string',
                     'required' => true
                 ),
+                'name' => array(
+                    'location' => 'postField',
+                    'type'     => 'string',
+                    'required' => true
+                ),
                 'slug' => array(
                     'location' => 'postField',
                     'type'     => 'string',
