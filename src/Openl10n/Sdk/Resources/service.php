@@ -36,9 +36,10 @@ return array(
         ),
         'GetProject' => array(
             'httpMethod' => 'GET',
-            'uri'        => 'projects/{slug}',
+            'uri'        => 'projects/{projectSlug}',
+            'responseClass' => 'Openl10n\Sdk\Model\Project',
             'parameters' => array(
-                'slug' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
@@ -47,19 +48,14 @@ return array(
         ),
         'EditProject' => array(
             'httpMethod' => 'PUT',
-            'uri'        => 'projects/{project}',
+            'uri'        => 'projects/{projectSlug}',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
                 ),
                 'name' => array(
-                    'location' => 'json',
-                    'type'     => 'string',
-                    'required' => true
-                ),
-                'slug' => array(
                     'location' => 'json',
                     'type'     => 'string',
                     'required' => true
@@ -73,9 +69,9 @@ return array(
         ),
         'DeleteProject' => array(
             'httpMethod' => 'DELETE',
-            'uri'        => 'projects/{project}',
+            'uri'        => 'projects/{projectSlug}',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
@@ -88,9 +84,9 @@ return array(
         //
         'ListLanguages' => array(
             'httpMethod' => 'GET',
-            'uri'        => 'projects/{project}/languages',
+            'uri'        => 'projects/{projectSlug}/languages',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
@@ -99,9 +95,9 @@ return array(
         ),
         'CreateLanguage' => array(
             'httpMethod' => 'POST',
-            'uri'        => 'projects/{project}/languages',
+            'uri'        => 'projects/{projectSlug}/languages',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
@@ -115,9 +111,9 @@ return array(
         ),
         'GetLanguage' => array(
             'httpMethod' => 'GET',
-            'uri'        => 'projects/{project}/languages/{locale}',
+            'uri'        => 'projects/{projectSlug}/languages/{locale}',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
@@ -131,9 +127,9 @@ return array(
         ),
         'DeleteLanguage' => array(
             'httpMethod' => 'DELETE',
-            'uri'        => 'projects/{project}/languages/{locale}',
+            'uri'        => 'projects/{projectSlug}/languages/{locale}',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
@@ -151,10 +147,10 @@ return array(
         //
         'ImportDomain' => array(
             'httpMethod' => 'POST',
-            'uri'        => 'projects/{project}/domains',
+            'uri'        => 'projects/{projectSlug}/domains',
             'enctype'    => 'multipart/form-data',
             'parameters' => array(
-                'project' => array(
+                'projectSlug' => array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
