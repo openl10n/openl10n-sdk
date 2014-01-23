@@ -9,8 +9,9 @@ return array(
         // Projects CRUD
         //
         'ListProjects' => array(
-            'httpMethod' => 'GET',
-            'uri'        => 'projects',
+            'httpMethod'    => 'GET',
+            'uri'           => 'projects',
+            'responseClass' => 'Openl10n\Sdk\Response\ListProjects',
         ),
         'CreateProject' => array(
             'httpMethod' => 'POST',
@@ -37,7 +38,7 @@ return array(
         'GetProject' => array(
             'httpMethod' => 'GET',
             'uri'        => 'projects/{projectSlug}',
-            'responseClass' => 'Openl10n\Sdk\Model\Project',
+            'responseClass' => 'Openl10n\Sdk\Response\GetProject',
             'parameters' => array(
                 'projectSlug' => array(
                     'location' => 'uri',
