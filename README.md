@@ -36,3 +36,8 @@ $content = $api->exportFile(
 );
 file_put_contents('/path/to/messages.fr.yml', $content);
 ```
+
+## License
+
+OpenLocalization is released under the MIT License. See the bundled LICENSE
+file for details.
