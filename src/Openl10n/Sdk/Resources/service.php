@@ -156,7 +156,7 @@ return array(
                     'type'     => 'string',
                     'required' => true
                 ),
-                'slug' => array(
+                'domain' => array(
                     'location' => 'postField',
                     'type'     => 'string',
                     'required' => true
