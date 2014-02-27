@@ -136,7 +136,7 @@ class Api
     {
         $command = $this->client->getCommand('ImportDomain', array(
             'projectSlug' => $projectSlug,
-            'slug' => $domainSlug,
+            'domain' => $domainSlug,
             'locale' => $locale,
             'file' => '@'.$file->getRealPath(),
         ));
