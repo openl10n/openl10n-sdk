@@ -139,6 +139,7 @@ class Api
             'domain' => $domainSlug,
             'locale' => $locale,
             'file' => '@'.$file->getRealPath(),
+            'options' => $options,
         ));
 
         $this->client->execute($command);
@@ -151,6 +152,7 @@ class Api
             'domain' => $domainSlug,
             'locale' => $locale,
             'format' => $format,
+            'options' => $options,
         ));
         $response = $this->client->execute($command);
 

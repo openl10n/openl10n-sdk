@@ -171,6 +171,14 @@ return array(
                     'type'     => 'string',
                     'required' => true
                 ),
+                'options' => array(
+                    'location' => 'query',
+                    'type'     => 'array',
+                    'required' => false,
+                    'items'    => array(
+                        'type' => 'string',
+                    )
+                ),
             )
         ),
         'ExportDomain' => array(
@@ -197,6 +205,14 @@ return array(
                     'location' => 'uri',
                     'type'     => 'string',
                     'required' => true
+                ),
+                'options' => array(
+                    'location' => 'query',
+                    'type'     => 'array',
+                    'required' => false,
+                    'items'    => array(
+                        'type' => 'string',
+                    )
                 ),
             )
         ),
