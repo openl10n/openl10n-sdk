@@ -2,43 +2,41 @@
 
 namespace Openl10n\Sdk;
 
-use Guzzle\Common\Collection;
-use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
+use GuzzleHttp\Client;
+use GuzzleHttp\Collection;
+use Openl10n\Sdk\EntryPoint;
+use Openl10n\Sdk\EntryPoint\EntryPointInterface;
 use Openl10n\Sdk\Model\Project;
 
 class Api
 {
     protected $client;
 
-    public function __construct(array $options, Client $client = null)
+    public function __construct(Config $config)
     {
-        $this->client = $client ?: new Client();
+        $defaultOptions = [
+            'scheme' => 'http',
+        ];
 
-        $defaultOptions = array(
-            'base_url' => '{scheme}://{hostname}/api',
-            'scheme'   => 'http',
-            //'base_url' => '{scheme}://{hostname}/api/{version}',
-            //'version' => '1',
-        );
-
-        $requiredOptions = array(
+        $requiredOptions = [
             'hostname',
-            'username',
-            'password',
-        );
+        ];
+
+        $options = [
+            'hostname' =>  $config->getHostname(),
+            'scheme' =>  $config->getUseSsl() ? 'https' : 'http',
+        ];
 
         $options = Collection::fromConfig($options, $defaultOptions, $requiredOptions);
-        $this->client->setConfig($options);
-        $this->client->setBaseUrl($options->get('base_url'));
-        $this->client->setDefaultOption('auth', array(
-            $options['username'],
-            $options['password'],
-            'Basic'
-        ));
 
-        $description = ServiceDescription::factory(__DIR__.'/Resources/service.php');
-        $this->client->setDescription($description);
+        $this->client = new Client([
+            'base_url' => ['{scheme}://{hostname}/api/', $options->toArray()],
+            'defaults' => [
+                'auth' =>  [$config->getLogin(), $config->getPassword()]
+            ]
+        ]);
+
+        $this->registerDefaultEntryPoints();
     }
 
     public function getClient()
@@ -46,91 +44,41 @@ class Api
         return $this->client;
     }
 
-    public function getProjects()
+    public function addEntryPoint(EntryPointInterface $entryPoint)
     {
-        $command = $this->client->getCommand('ListProjects');
-
-        return $this->client->execute($command);
+        $entryPoint->setClient($this->client);
+        $this->entryPoints[$entryPoint->getName()] = $entryPoint;
     }
 
-    public function getProject($projectSlug)
+    public function getEntryPoint($name)
     {
-        $command = $this->client->getCommand('GetProject', array(
-            'projectSlug' => $projectSlug,
-        ));
+        if (!isset($this->entryPoints[$name])) {
+            throw new \InvalidArgumentException(sprintf('Invalid entry point "%s"', $name));
+        }
 
-        return $this->client->execute($command);
+        return $this->entryPoints[$name];
     }
 
-    public function createProject(Project $project)
+    protected function registerDefaultEntryPoints()
     {
-        $command = $this->client->getCommand('CreateProject', array(
-            'slug' => $project->getSlug(),
-            'name' => $project->getName(),
-            'defaultLocale' => $project->getDefaultLocale(),
-        ));
+        $entryPoints = array(
+            new EntryPoint\ProjectEntryPoint(),
+            new EntryPoint\ResourceEntryPoint(),
+            new EntryPoint\TranslationEntryPoint(),
+        );
 
-        $this->client->execute($command);
+        foreach ($entryPoints as $entryPoint) {
+            $this->addEntryPoint($entryPoint);
+        }
     }
 
-    public function updateProject(Project $project)
-    {
-        $command = $this->client->getCommand('EditProject', array(
-            'projectSlug' => $project->getSlug(),
-            'name' => $project->getName(),
-            'defaultLocale' => $project->getDefaultLocale(),
-        ));
 
-        $this->client->execute($command);
-    }
 
-    public function deleteProject($projectSlug)
-    {
-        $command = $this->client->getCommand('DeleteProject', array(
-            'projectSlug' => $projectSlug,
-        ));
 
-        return $this->client->execute($command);
-    }
 
-    public function getLanguages($projectSlug)
-    {
-        $command = $this->client->getCommand('ListLanguages', array(
-            'projectSlug' => $projectSlug,
-        ));
 
-        return $this->client->execute($command);
-    }
 
-    public function getLanguage($projectSlug, $locale)
-    {
-        $command = $this->client->getCommand('GetLanguage', array(
-            'projectSlug' => $projectSlug,
-            'locale' => $locale,
-        ));
 
-        return $this->client->execute($command);
-    }
-
-    public function createLanguage($projectSlug, $locale)
-    {
-        $command = $this->client->getCommand('CreateLanguage', array(
-            'projectSlug' => $projectSlug,
-            'locale' => $locale,
-        ));
-
-        $this->client->execute($command);
-    }
-
-    public function deleteLanguage($projectSlug, $locale)
-    {
-        $command = $this->client->getCommand('DeleteLanguage', array(
-            'projectSlug' => $projectSlug,
-            'locale' => $locale,
-        ));
-
-        $this->client->execute($command);
-    }
 
     public function importFile($projectSlug, \SplFileInfo $file, $domainSlug, $locale, array $options = array())
     {
