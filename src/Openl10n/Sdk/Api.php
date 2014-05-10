@@ -32,9 +32,13 @@ class Api
         $this->client = new Client([
             'base_url' => ['{scheme}://{hostname}/api/', $options->toArray()],
             'defaults' => [
-                'auth' =>  [$config->getLogin(), $config->getPassword()]
+                'auth' =>  [$config->getLogin(), $config->getPassword()],
+                'headers' => [
+                    'Accept' => 'application/json'
+                ]
             ]
         ]);
+        $this->client->setDefaultOption('headers/User-Agent', 'Openl10n '.Client::getDefaultUserAgent());
 
         $this->registerDefaultEntryPoints();
     }
