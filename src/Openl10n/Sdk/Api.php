@@ -25,12 +25,13 @@ class Api
         $options = [
             'hostname' =>  $config->getHostname(),
             'scheme' =>  $config->getUseSsl() ? 'https' : 'http',
+            'port' =>  $config->getPort(),
         ];
 
         $options = Collection::fromConfig($options, $defaultOptions, $requiredOptions);
 
         $this->client = new Client([
-            'base_url' => ['{scheme}://{hostname}/api/', $options->toArray()],
+            'base_url' => ['{scheme}://{hostname}:{port}/api/', $options->toArray()],
             'defaults' => [
                 'auth' =>  [$config->getLogin(), $config->getPassword()]
             ]

@@ -8,11 +8,17 @@ class Config
 	protected $useSsl;
 	protected $login;
 	protected $password;
+	protected $port;
 
-	public function __construct($hostname, $useSsl = false)
+	public function __construct($hostname, $useSsl = false, $port = null)
 	{
 		$this->hostname = (string) $hostname;
 		$this->useSsl = (bool) $useSsl;
+        if ($port === null) {
+            $this->port = $this->useSsl ? 443 : 80;
+        } else {
+            $this->port = $port;
+        }
 	}
 
 	public function setAuth($login, $password)
@@ -42,4 +48,9 @@ class Config
 	{
 		return $this->password;
 	}
+
+    public function getPort()
+    {
+        return $this->port;
+    }
 }
