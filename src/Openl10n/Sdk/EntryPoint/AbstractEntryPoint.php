@@ -6,21 +6,21 @@ use GuzzleHttp\Client;
 
 abstract class AbstractEntryPoint implements EntryPointInterface
 {
-	private $client;
+    private $client;
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function setClient(Client $client)
-	{
-		$this->client = $client;
-	}
+    /**
+     * {@inheritdoc}
+     */
+    public function setClient(Client $client)
+    {
+        $this->client = $client;
+    }
 
-	/**
-	 * @return Client Client of the API
-	 */
-	protected function getClient()
-	{
-		return $this->client;
-	}
+    /**
+     * @return Client Client of the API
+     */
+    protected function getClient()
+    {
+        return $this->client;
+    }
 }

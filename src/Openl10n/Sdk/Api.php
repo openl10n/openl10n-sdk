@@ -4,9 +4,7 @@ namespace Openl10n\Sdk;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Collection;
-use Openl10n\Sdk\EntryPoint;
 use Openl10n\Sdk\EntryPoint\EntryPointInterface;
-use Openl10n\Sdk\Model\Project;
 
 class Api
 {
