@@ -7,7 +7,7 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-$rootApi = new Api((new Config('openl10n.dev'))->setAuth('user', 'user'));
+$rootApi = new \Openl10n\Sdk\Api((new Config('openl10n.dev'))->setAuth('user', 'user'));
 
 // Get API entry points
 $projectApi = $rootApi->getEntryPoint('project');
