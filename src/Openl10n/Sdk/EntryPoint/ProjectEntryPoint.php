@@ -21,6 +21,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
             $project = new Project($result['slug']);
             $project->setName($result['name']);
             $project->setDefaultLocale($result['default_locale']);
+            $project->setDescription($result['description']);
 
             $projects[] = $project;
         }
@@ -35,6 +36,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
         $project = new Project($result['slug']);
         $project->setName($result['name']);
         $project->setDefaultLocale($result['default_locale']);
+        $project->setDescription($result['description']);
 
         return $project;
     }
@@ -49,6 +51,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
                 'slug' => $project->getSlug(),
                 'name' => $project->getName(),
                 'default_locale' => $project->getDefaultLocale(),
+                'description' => $project->getDescription(),
             ]),
         ]);
     }
@@ -62,6 +65,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
             'body' => json_encode([
                 'name' => $project->getName(),
                 'default_locale' => $project->getDefaultLocale(),
+                'description' => $project->getDescription(),
             ]),
         ]);
     }
