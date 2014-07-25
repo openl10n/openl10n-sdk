@@ -31,7 +31,11 @@ class Api
         $this->client = new Client([
             'base_url' => ['{scheme}://{hostname}:{port}/api/', $options->toArray()],
             'defaults' => [
-                'auth' =>  [$config->getLogin(), $config->getPassword()]
+                'auth' =>  [$config->getLogin(), $config->getPassword()],
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'User-Agent' => 'Openl10n '.Client::getDefaultUserAgent()
+                ]
             ]
         ]);
 
