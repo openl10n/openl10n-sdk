@@ -1,5 +1,8 @@
 # Openl10n SDK
 
+Openl10n SDK is a PHP client for [openl10n API](https://github.com/openl10n/openl10n).
+It uses [Guzzle](http://guzzlephp.org/) library (version 4) to handle HTTP requests.
+
 ## Usage
 
 ```php
@@ -36,4 +39,4 @@ file_put_contents('path/to/messages.fr.yml', $content);
 ## License
 
 OpenLocalization SDK is released under the MIT License.
-See the bundled LICENSE file for details.
+See the [bundled LICENSE file](LICENSE) for details.
