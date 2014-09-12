@@ -32,6 +32,7 @@ class Api
             'base_url' => ['{scheme}://{hostname}:{port}/api/', $options->toArray()],
             'defaults' => [
                 'auth' =>  [$config->getLogin(), $config->getPassword()],
+                'expect' => false,
                 'headers' => [
                     'Accept' => 'application/json',
                     'User-Agent' => 'Openl10n '.Client::getDefaultUserAgent()
