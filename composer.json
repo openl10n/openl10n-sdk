@@ -10,11 +10,22 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "~4.0"
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
     },
     "autoload": {
-        "psr-0": {
-            "Openl10n\\Sdk": "src"
+        "psr-4": {
+            "Openl10n\\Sdk\\": "src/Openl10n/Sdk/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Openl10n\\Sdk\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
     }
 }

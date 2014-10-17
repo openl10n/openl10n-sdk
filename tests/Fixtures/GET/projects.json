@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {"slug":"foobar","name":"Foobar","default_locale":"en"},
+  {"slug":"barbaz","name":"Barbaz","default_locale":"fr"}
+]

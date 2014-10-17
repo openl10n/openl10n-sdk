@@ -63,6 +63,18 @@ class Api
         return $this->entryPoints[$name];
     }
 
+    /**
+     * Alias for getEntryPoint.
+     *
+     * @param string $name
+     *
+     * @return EntryPointInterface
+     */
+    public function get($name)
+    {
+        $this->getEntryPoint($name);
+    }
+
     protected function registerDefaultEntryPoints()
     {
         $entryPoints = array(

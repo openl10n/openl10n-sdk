@@ -12,70 +12,46 @@ class ResourceEntryPoint extends AbstractEntryPoint
         return 'resource';
     }
 
-    public function findByProject(Project $project)
+    public function findByProject($projectSlug)
     {
-        $results = $this->getClient()->get('resources', [
-            'query' => ['project' => $project->getSlug()]
-        ])->json();
+        $response = $this->getClient()->get("resources", [
+            'query' => ['project' => $projectSlug],
+        ]);
 
-        $resources = array();
-        foreach ($results as $result) {
-            $resource = new Resource($result['project']);
-            $resource->setId($result['id']);
-            $resource->setPathname($result['pathname']);
-
-            $resources[] = $resource;
-        }
-
-        return $resources;
+        return $response->json();
     }
 
-    public function get($id)
+    public function get($resourceId)
     {
-        $result = $this->getClient()->get('resource/'.$id)->json();
-
-        $resource = new Resource($result['project']);
-        $resource->setId($result['id']);
-        $resource->setPathname($result['pathname']);
-
-        return $resource;
+        return $this->getClient()->get("resources/$resourceId")->json();
     }
 
-    public function create(Resource $resource)
+    public function create(array $data)
     {
         $response = $this->getClient()->post('resources', [
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode([
-                'project' => $resource->getProjectSlug(),
-                'pathname' => $resource->getPathname(),
-            ]),
-        ])->json();
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($data),
+        ]);
 
-        $resource->setId($response['id']);
+        return $response->json();
     }
 
-    public function update(Resource $resource)
+    public function update($resourceId, array $data)
     {
         $this->getClient()->post('resources/'.$resource->getId(), [
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode([
-                'pathname' => $resource->getPathname(),
-            ]),
+            'headers' => ['Content-Type' => 'application/json'],
+            'body' => json_encode($data),
         ]);
     }
 
-    public function delete(Resource $resource)
+    public function delete($resourceId)
     {
-        $this->getClient()->delete('resources/'.$resource->getId());
+        $this->getClient()->delete('resources/'.$resourceId);
     }
 
-    public function import(Resource $resource, $filepath, $locale, array $options = array())
+    public function upload($resourceId, $filepath, $locale, array $options = array())
     {
-        $this->getClient()->post('resources/'.$resource->getId().'/import', [
+        $this->getClient()->post("resources/$resourceId/import", [
             'body' => [
                 'locale' => $locale,
                 'file' => fopen($filepath, 'r'),
@@ -84,7 +60,7 @@ class ResourceEntryPoint extends AbstractEntryPoint
         ]);
     }
 
-    public function export(Resource $resource, $locale, array $options = array(), $format = null)
+    public function download(Resource $resource, $locale, array $options = array(), $format = null)
     {
         $response = $this->getClient()->get('resources/'.$resource->getId().'/export', [
             'query' => [

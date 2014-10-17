@@ -1,0 +1,5 @@
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: http://openl10n.dev/app_dev.php/api/projects/foobardf
+
+{"slug":"openl10n","name":"OpenLocalization","default_locale":"en"}

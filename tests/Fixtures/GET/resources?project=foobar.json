@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {"id":1,"project":"foobar","pathname":"app\/Resources\/translations\/messages.en.yml"},
+  {"id":2,"project":"foobar","pathname":"app\/Resources\/translations\/validators.en.xlf"}
+]
