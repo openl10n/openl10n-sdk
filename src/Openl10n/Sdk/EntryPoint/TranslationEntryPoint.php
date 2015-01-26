@@ -23,7 +23,19 @@ class TranslationEntryPoint extends AbstractEntryPoint
 
     public function create(Translation $translation)
     {
-        throw new \BadMethodCallException('Not implemented yet!');
+        $response = $this->getClient()->post('translations', [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'body' => json_encode([
+                'identifier' => $translation->getIdentifier(),
+                'resource'   => $translation->getResourceId(),
+            ]),
+        ])->json();
+
+        $translation->setId($response['id']);
+
+        return $translation;
     }
 
     public function update(Translation $translation)
