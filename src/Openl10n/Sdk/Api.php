@@ -3,7 +3,6 @@
 namespace Openl10n\Sdk;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Collection;
 use Openl10n\Sdk\EntryPoint\EntryPointInterface;
 
 class Api
@@ -12,31 +11,26 @@ class Api
 
     public function __construct(Config $config)
     {
-        $defaultOptions = [
-            'scheme' => 'http',
-        ];
-
-        $requiredOptions = [
-            'hostname',
-        ];
-
+        if (!$config->getHostname()) {
+            throw \InvalidArgumentException('hostname must be set');
+        }
         $options = [
-            'hostname' =>  $config->getHostname(),
             'scheme' =>  $config->getUseSsl() ? 'https' : 'http',
+            'hostname' =>  $config->getHostname(),
             'port' =>  $config->getPort(),
         ];
 
-        $options = Collection::fromConfig($options, $defaultOptions, $requiredOptions);
+        $baseUri = vsprintf('%s://%s:%s/api/', $options);
+
 
         $this->client = new Client([
-            'base_url' => ['{scheme}://{hostname}:{port}/api/', $options->toArray()],
-            'defaults' => [
-                'auth' =>  [$config->getLogin(), $config->getPassword()],
-                'expect' => false,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'User-Agent' => 'Openl10n '.Client::getDefaultUserAgent()
-                ]
+            'base_uri' => $baseUri,
+            'auth' =>  [$config->getLogin(), $config->getPassword()],
+            'auth' =>  [$config->getLogin(), $config->getPassword()],
+            'expect' => false,
+            'headers' => [
+                'Accept' => 'application/json',
+                'User-Agent' => 'Openl10n '.\GuzzleHttp\default_user_agent()
             ]
         ]);
 

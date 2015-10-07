@@ -14,7 +14,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
 
     public function findAll()
     {
-        $results = $this->getClient()->get('projects')->json();
+        $results = json_decode($this->getClient()->get('projects')->getBody(), true);
 
         $projects = array();
         foreach ($results as $result) {
@@ -30,7 +30,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
 
     public function get($slug)
     {
-        $result = $this->getClient()->get('projects/'.$slug)->json();
+        $result = json_decode($this->getClient()->get('projects/'.$slug)->getBody(), true);
 
         $project = new Project($result['slug']);
         $project->setName($result['name']);
@@ -73,7 +73,7 @@ class ProjectEntryPoint extends AbstractEntryPoint
 
     public function getLanguages($projectSlug)
     {
-        $results = $this->getClient()->get('projects/'.$projectSlug.'/languages')->json();
+        $results = json_decode($this->getClient()->get('projects/'.$projectSlug.'/languages')->getBody(), true);
 
         return array_map(function ($result) {
             return new Language($result['locale'], $result['name']);

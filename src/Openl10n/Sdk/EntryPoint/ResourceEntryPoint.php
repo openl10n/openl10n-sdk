@@ -14,9 +14,15 @@ class ResourceEntryPoint extends AbstractEntryPoint
 
     public function findByProject(Project $project)
     {
-        $results = $this->getClient()->get('resources', [
-            'query' => ['project' => $project->getSlug()]
-        ])->json();
+        $results = json_decode(
+            $this->getClient()->get(
+                'resources',
+                [
+                    'query' => ['project' => $project->getSlug()]
+                ]
+            )->getBody(),
+            true
+        );
 
         $resources = array();
         foreach ($results as $result) {
@@ -32,7 +38,7 @@ class ResourceEntryPoint extends AbstractEntryPoint
 
     public function get($id)
     {
-        $result = $this->getClient()->get('resource/'.$id)->json();
+        $result = json_decode($this->getClient()->get('resource/'.$id)->getBody(), true);
 
         $resource = new Resource($result['project']);
         $resource->setId($result['id']);
@@ -43,15 +49,21 @@ class ResourceEntryPoint extends AbstractEntryPoint
 
     public function create(Resource $resource)
     {
-        $response = $this->getClient()->post('resources', [
-            'headers' => [
-                'Content-Type' => 'application/json'
-            ],
-            'body' => json_encode([
-                'project' => $resource->getProjectSlug(),
-                'pathname' => $resource->getPathname(),
-            ]),
-        ])->json();
+        $response = json_decode(
+            $this->getClient()->post(
+                'resources',
+                [
+                    'headers' => [
+                        'Content-Type' => 'application/json'
+                    ],
+                    'body' => json_encode([
+                        'project' => $resource->getProjectSlug(),
+                        'pathname' => $resource->getPathname(),
+                    ]),
+                ]
+            )->getBody(),
+            true
+        );
 
         $resource->setId($response['id']);
     }
