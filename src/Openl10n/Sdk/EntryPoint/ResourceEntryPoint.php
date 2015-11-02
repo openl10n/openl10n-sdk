@@ -88,7 +88,7 @@ class ResourceEntryPoint extends AbstractEntryPoint
     public function import(Resource $resource, $filepath, $locale, array $options = array())
     {
         $this->getClient()->post('resources/'.$resource->getId().'/import', [
-            'body' => [
+            'form_params' => [
                 'locale' => $locale,
                 'file' => fopen($filepath, 'r'),
                 'options' => $options,
