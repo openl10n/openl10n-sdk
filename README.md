@@ -1,7 +1,7 @@
 # Openl10n SDK
 
 [![License MIT](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/openl10n/openl10n-sdk/blob/master/LICENSE)
-[![Packagist](http://img.shields.io/packagist/v/openl10n/openl10n.svg)](https://packagist.org/packages/openl10n/sdk)
+[![Packagist](http://img.shields.io/packagist/v/openl10n/sdk.svg)](https://packagist.org/packages/openl10n/sdk)
 [![Dependency Status](https://www.versioneye.com/user/projects/543ce51964e43a6bbb000029/badge.svg)](https://www.versioneye.com/user/projects/543ce51964e43a6bbb000029)
 
 Openl10n SDK is a PHP client for [openl10n API](https://github.com/openl10n/openl10n).
