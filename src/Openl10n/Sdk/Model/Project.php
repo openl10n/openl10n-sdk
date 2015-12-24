@@ -7,6 +7,7 @@ class Project
     protected $slug;
     protected $name;
     protected $defaultLocale;
+    protected $description;
 
     public function __construct($slug)
     {
@@ -38,6 +39,18 @@ class Project
     public function setDefaultLocale($defaultLocale)
     {
         $this->defaultLocale = $defaultLocale;
+
+        return $this;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
